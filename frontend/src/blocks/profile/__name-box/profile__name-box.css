@@ -1,0 +1,13 @@
+.profile__name-box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-right: auto;
+}
+
+@media (max-width: 425px) {
+    .profile__name-box {
+        margin: 0 auto;
+        justify-content: center;
+    }
+}

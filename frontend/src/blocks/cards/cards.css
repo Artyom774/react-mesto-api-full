@@ -1,0 +1,23 @@
+.cards {
+    width: 100%;
+    min-height: 100px;
+    margin: 0;
+    display: grid;
+    gap: 20px 17px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    box-sizing: border-box;
+}
+
+@media (max-width: 934px) {
+    .cards {
+        padding-left: calc(27px - (100vw - 880px) / 2);
+        padding-right: calc(27px - (100vw - 880px) / 2);
+    }
+}
+
+@media (max-width: 880px) {
+    .cards {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+}

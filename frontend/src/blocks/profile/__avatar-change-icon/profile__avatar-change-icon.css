@@ -1,0 +1,18 @@
+.profile__avatar-change-icon {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50px;
+    overflow: hidden;
+    z-index: 2;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 26px 26px;
+    cursor: pointer;
+}
+
+.profile__avatar-change-icon:hover {
+    background-color: rgba(0,0,0,.8);
+    background-image: url(../../../images/avatar-change-icon.svg);
+    transition-duration: .3s;
+}

@@ -1,0 +1,7 @@
+.popup__photo {
+    margin: auto;
+    object-fit: cover;
+    display: flex;
+    max-width: 75vw;
+    max-height: 75vh;
+}

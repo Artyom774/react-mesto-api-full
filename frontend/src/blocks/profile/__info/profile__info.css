@@ -1,0 +1,16 @@
+.profile__info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 22px 30px 0;
+    width: calc(83% - 120px);
+    min-height: 120px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 425px) {
+    .profile__info {
+        width: 100%;
+        padding: 22px 0 36px;
+    }
+}

@@ -1,0 +1,8 @@
+.card__caption-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+    min-height: 80px;
+}

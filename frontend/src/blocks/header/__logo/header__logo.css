@@ -1,0 +1,15 @@
+.header__logo {
+    width: 142px;
+    object-fit: cover;
+}
+
+.header__logo:hover {
+    opacity: .6;
+    transition-duration: 1s;
+}
+
+@media (max-width: 400px) {
+    .header__logo {
+        width: 35.5%;
+    }
+}

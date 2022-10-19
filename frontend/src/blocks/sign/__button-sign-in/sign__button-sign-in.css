@@ -1,0 +1,21 @@
+.sign__button-sign-in {
+  width: 358px;
+  margin: 15px auto 0;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  justify-content: center;
+  cursor: pointer;
+  transition: 1s;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+}
+
+.sign__button-sign-in:hover {
+  color: rgba(255, 255, 255, .85);
+  transition-duration: 1s;
+}

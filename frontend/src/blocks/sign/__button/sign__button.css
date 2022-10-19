@@ -1,0 +1,24 @@
+.sign__button {
+  background-color: white;
+  border: none;
+  border-radius: 2px;
+  width: 358px;
+  min-height: 50px;
+  margin: 216px auto 0;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 1s;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+}
+
+.sign__button:hover {
+  background-color: rgba(255, 255, 255, .85);
+  transition-duration: 1s;
+}
