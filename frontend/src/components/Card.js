@@ -7,7 +7,7 @@ function Card({card, imageWatchOpen, onCardLike, onDeleteCard}) {
 
   return (
     <div className="card">
-      <button type="button" className={`card__delete ` + (card.owner._id !== userId && `card__delete_hidden`)} onClick={() => onDeleteCard(card)}></button>
+      <button type="button" className={`card__delete ` + (card.owner !== userId && `card__delete_hidden`)} onClick={() => onDeleteCard(card)}></button>
       <img className="card__photo" src={card.link} alt={card.name} onClick={() => imageWatchOpen(card.link, card.name)} />
       <div className="card__caption-block">
         <h2 className="card__caption">{card.name}</h2>
