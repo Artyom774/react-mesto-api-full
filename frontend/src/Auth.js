@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://84.201.162.71:3100';
+export const BASE_URL = 'http://localhost:3100';
 
 function _checkResponse(res) {
     if (res.ok) {
