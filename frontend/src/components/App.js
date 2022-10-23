@@ -44,6 +44,7 @@ function App(props) {
       .then(([info, initialCards])=>{
         setCurrentUser(info);
         setCards(initialCards);
+        console.log(initialCards);
       }).catch(err => console.log(err));
       tokenCheck(token);
     };
@@ -88,10 +89,6 @@ function App(props) {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
-  function handleImageClick() {
-    setIsImagePopupOpen(!isImagePopupOpen);
-  }
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -111,7 +108,10 @@ function App(props) {
     const data = {name: name, job: about};
     const token = localStorage.getItem('token');
     api.refreshUserInfo(data, token)
-    .then((result) => {setCurrentUser(result);closeAllPopups();})
+    .then((result) => {
+      setCurrentUser(result);
+      closeAllPopups();
+    })
     .catch(err => console.log(err));
   }
 
@@ -139,7 +139,7 @@ function App(props) {
 
   function handleCardLike(card) {
     const token = localStorage.getItem('token');
-    if (card.likes.some(i => i._id === currentUser._id)) {
+    if (card.likes.some(i => i === currentUser._id)) {
       api
       .deleteLike(card._id, token)
       .then((newCard) => {

@@ -12,7 +12,7 @@ function Card({card, imageWatchOpen, onCardLike, onDeleteCard}) {
       <div className="card__caption-block">
         <h2 className="card__caption">{card.name}</h2>
         <div className="card__like-block">
-          <button type="button" className={`card__like ` + (card.likes.some((like)=>{return userId === like._id}) && `card__like_active`)} onClick={() => onCardLike(card)}></button>
+          <button type="button" className={`card__like ` + (card.likes.some((like)=>{return userId === like}) && `card__like_active`)} onClick={() => onCardLike(card)}></button>
           <p className="card__number-of-likes">{card.likes.length}</p>
         </div>
       </div>
