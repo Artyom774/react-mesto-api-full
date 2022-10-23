@@ -12,9 +12,16 @@ const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env; // файла .env нет в проекте
+const { PORT = 3100 } = process.env; // файла .env нет в проекте
 const app = express(); // app работает через фреймворк Express
-app.use(cors());
+
+const corsOptions = { // настройки КОРС-а
+  credentials: true,
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  preflightContinue: false,
+};
+app.use(cors(corsOptions));
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение к базе MongooseDB
   useNewUrlParser: true,

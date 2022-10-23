@@ -15,7 +15,7 @@ module.exports.findAllUsers = (req, res, next) => {
         about: user.about,
         avatar: user.avatar,
       }));
-      res.send(allUsers);
+      res.send(allUsers).setHeader('Access-Control-Allow-Headers');
     })
     .catch((err) => next(err));
 };
@@ -31,7 +31,7 @@ module.exports.getMeById = (req, res, next) => {
           email: user.email,
           about: user.about,
           avatar: user.avatar,
-        });
+        }).setHeader('Access-Control-Allow-Headers');
       }
     })
     .catch((err) => {
@@ -54,7 +54,7 @@ module.exports.findUserById = (req, res, next) => {
           email: user.email,
           about: user.about,
           avatar: user.avatar,
-        });
+        }).setHeader('Access-Control-Allow-Headers');
       }
     })
     .catch((err) => {
@@ -82,7 +82,7 @@ module.exports.createUser = (req, res, next) => {
         email: user.email,
         about: user.about,
         avatar: user.avatar,
-      });
+      }).setHeader('Access-Control-Allow-Headers');
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -102,7 +102,7 @@ module.exports.login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'super-secret-key', { expiresIn: '7d' });
-      res.send({ token });
+      res.send({ token }).setHeader('Access-Control-Allow-Headers');
     })
     .catch((err) => {
       if (err.name === 'Error') {
@@ -127,7 +127,7 @@ module.exports.updateUser = (req, res, next) => {
           email: user.email,
           about: user.about,
           avatar: user.avatar,
-        });
+        }).setHeader('Access-Control-Allow-Headers');
       }
     })
     .catch((err) => {
@@ -153,7 +153,7 @@ module.exports.updateAvatar = (req, res, next) => {
           email: user.email,
           about: user.about,
           avatar: user.avatar,
-        });
+        }).setHeader('Access-Control-Allow-Headers');
       }
     })
     .catch((err) => {

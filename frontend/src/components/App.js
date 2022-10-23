@@ -34,16 +34,19 @@ function App(props) {
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [email, setEmail] = React.useState('');
 
-  React.useEffect(()=>{
+  React.useEffect(()=>{ 
+    const token = localStorage.getItem('token');
+    if (token) {
     Promise.all([
-      api.getUserInfo(),  // запрос информации о профиле
-      api.getInitialCards()  // загрузка изначальных карточек
+      api.getUserInfo(token),  // запрос информации о профиле
+      api.getInitialCards(token)  // загрузка изначальных карточек
     ])
       .then(([info, initialCards])=>{
         setCurrentUser(info);
         setCards(initialCards);
       }).catch(err => console.log(err));
-      tokenCheck();
+      tokenCheck(token);
+    };
   }, [])
 
   React.useEffect(() => {
@@ -60,17 +63,16 @@ function App(props) {
     }
   }, [isOpen])
 
-  function tokenCheck() {
-    const token = localStorage.getItem('token');
+  function tokenCheck(token) {
     if (token) {
       getContent(token).then((res) => {
         if (res) {
-          setEmail(res.data.email);
+          setEmail(res.email);
           setLoggedIn(true);
           props.history.push('/');
         };
       })
-      .catch(err => console.log(err));; 
+      .catch(err => console.log(err));
     };
   }
 
@@ -107,14 +109,16 @@ function App(props) {
 
   function handleUpdateUser({name, about}) {
     const data = {name: name, job: about};
-    api.refreshUserInfo(data)
+    const token = localStorage.getItem('token');
+    api.refreshUserInfo(data, token)
     .then((result) => {setCurrentUser(result);closeAllPopups();})
     .catch(err => console.log(err));
   }
 
   function handlePostNewCard(data) {
+    const token = localStorage.getItem('token');
     api
-    .postNewCard(data)
+    .postNewCard(data, token)
     .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
@@ -123,8 +127,9 @@ function App(props) {
   }
 
   function handleUpdateAvatar(data) {
+    const token = localStorage.getItem('token');
     api
-    .refreshAvatar(data)
+    .refreshAvatar(data, token)
     .then((result) => {
       setCurrentUser(result);
       closeAllPopups();
@@ -133,16 +138,17 @@ function App(props) {
   }
 
   function handleCardLike(card) {
+    const token = localStorage.getItem('token');
     if (card.likes.some(i => i._id === currentUser._id)) {
       api
-      .deleteLike(card._id)
+      .deleteLike(card._id, token)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
       .catch(err => console.log(err));
     } else {
       api
-      .putLike(card._id)
+      .putLike(card._id, token)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
@@ -151,8 +157,9 @@ function App(props) {
   }
 
   function handleDeleteCard(card) {
+    const token = localStorage.getItem('token');
     api
-    .deleteCard(card._id)
+    .deleteCard(card._id, token)
     .then((newCard) => {
       setCards((state) => state.filter((c) => c._id !== card._id));
     })

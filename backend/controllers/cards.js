@@ -5,7 +5,7 @@ const Card = require('../models/card');
 
 module.exports.findAllCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send(cards))
+    .then((cards) => res.send(cards).setHeader('Access-Control-Allow-Headers'))
     .catch((err) => next(err));
 };
 
@@ -13,7 +13,7 @@ module.exports.findCardById = (req, res, next) => {
   Card.findById(req.params.id)
     .orFail(new NotFoundError(`Карточка c id '${req.params.id}' не найдена`))
     .then((card) => {
-      if (card) { res.send(card); }
+      if (card) { res.send(card).setHeader('Access-Control-Allow-Headers'); }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -29,7 +29,7 @@ module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: ownerId })
-    .then((card) => res.send(card))
+    .then((card) => res.send(card).setHeader('Access-Control-Allow-Headers'))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Данные о новой карточке не удовлетворяют требованиям валидации'));
@@ -48,7 +48,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (card) {
         if (card.owner.toString() === ownerId) {
           card.delete()
-            .then(() => res.status(200).json({ message: `Карточка c id '${req.params.id}' успешно удалена` }))
+            .then(() => res.status(200).json({ message: `Карточка c id '${req.params.id}' успешно удалена` }).setHeader('Access-Control-Allow-Headers'))
             .catch((err) => next(err));
         } else { throw new ForbiddenError('Эта карточка принадлежит другому пользователю'); }
       }
@@ -68,7 +68,7 @@ module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: userId } }, { new: true })
     .orFail(new NotFoundError(`Карточка c id '${req.params.id}' не найдена`))
     .then((card) => {
-      if (card) { res.send(card); }
+      if (card) { res.send(card).setHeader('Access-Control-Allow-Headers'); }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -85,7 +85,7 @@ module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: userId } }, { new: true })
     .orFail(new NotFoundError(`Карточка c id '${req.params.id}' не найдена`))
     .then((card) => {
-      if (card) { res.send(card); }
+      if (card) { res.send(card).setHeader('Access-Control-Allow-Headers'); }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
