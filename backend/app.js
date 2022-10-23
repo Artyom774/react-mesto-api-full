@@ -25,7 +25,7 @@ const corsOptions = { // настройки КОРС-а
 };
 app.use(cors(corsOptions));
 
-mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение к базе MongooseDB
+mongoose.connect('mongodb://84.201.162.71:27017/mestodb', { // подключение к базе MongooseDB
   useNewUrlParser: true,
 });
 
