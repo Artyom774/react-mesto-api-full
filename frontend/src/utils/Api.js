@@ -125,7 +125,7 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'http://localhost:3100',
+  baseUrl: 'http://api.your-mesto.nomoredomains.icu',
   headers: {
     'Content-Type': 'application/json'
   }
