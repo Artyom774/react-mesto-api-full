@@ -24,8 +24,8 @@ class Api {
 
   getUserInfo(token) {   // загрузка сведений о пользователе со сервера
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
       headers: {
+        'Content-Type': 'application/json',
         'authorization': `Bearer ${token}`
       },
       credentials: "include"
@@ -44,12 +44,6 @@ class Api {
       'Content-Type': 'application/json',
       'authorization': `Bearer ${token}`
     },
-    /*
-    headers: this._headers,
-    headers: {
-      'authorization': `Bearer ${token}`
-    },
-    */
     credentials: "include",
     body: JSON.stringify({
       name: data.name,
@@ -125,7 +119,7 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'http://api.your-mesto.nomoredomains.icu',
+  baseUrl: 'https://api.your-mesto.nomoredomains.icu',
   headers: {
     'Content-Type': 'application/json'
   }
