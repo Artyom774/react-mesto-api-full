@@ -1,7 +1,7 @@
 {
   "name": "mesto",
   "version": "0.1.0",
-  "homepage": "https://artyom774.github.io/react-mesto-auth",
+  "homepage": "https://your-mesto.nomoredomains.icu/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -48,11 +48,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Artyom774/react-mesto-auth.git"
+    "url": "git+https://github.com/Artyom774/react-mesto-api-full.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Artyom774/react-mesto-auth/issues"
+    "url": "https://github.com/Artyom774/react-mesto-api-full/issues"
   }
 }
