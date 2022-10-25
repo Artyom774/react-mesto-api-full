@@ -19,12 +19,10 @@ const app = express(); // app работает через фреймворк Exp
 const corsOptions = { // настройки КОРС-а
   credentials: true,
   origin: [
+    'https://your-mesto.nomoredomains.icu',
     'http://localhost:3000',
     'https://84.201.162.71:3000',
-    'https://84.201.162.71',
-    'https://praktikum.tk',
-    'http://praktikum.tk',
-    'https://your-mesto.nomoredomains.icu'],
+    'https://praktikum.tk'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: false,
 };
