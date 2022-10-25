@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -21,6 +21,9 @@ const corsOptions = { // настройки КОРС-а
   origin: [
     'http://localhost:3000',
     'https://84.201.162.71:3000',
+    'https://84.201.162.71',
+    'https://praktikum.tk',
+    'http://praktikum.tk',
     'https://your-mesto.nomoredomains.icu'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: false,
@@ -34,6 +37,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { // подключени�
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use('/signin', signInRouter); // авторизация пользователя
 app.use('/signup', signUpRouter); // регистрация пользователя
