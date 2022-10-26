@@ -44,11 +44,30 @@ function App(props) {
       .then(([info, initialCards])=>{
         setCurrentUser(info);
         setCards(initialCards);
-        console.log(initialCards);
       }).catch(err => console.log(err));
       tokenCheck(token);
     };
   }, [])
+
+  React.useEffect(()=>{ 
+    console.log('обновляем информацию');
+    const token = localStorage.getItem('token');
+    console.log('токен:', token);
+    if (token) {
+    Promise.all([
+      api.getUserInfo(token),  // запрос информации о профиле
+      api.getInitialCards(token)  // загрузка изначальных карточек
+    ])
+      .then(([info, initialCards])=>{
+        console.log(info);
+        console.log(initialCards);
+        setCurrentUser(info);
+        setCards(initialCards);
+      }).catch(err => console.log(err));
+      console.log('дошли до сюда');
+      tokenCheck(token);
+    };
+  }, [loggedIn])
 
   React.useEffect(() => {
     function closeByEscape(evt) {
@@ -64,7 +83,7 @@ function App(props) {
     }
   }, [isOpen])
 
-  function tokenCheck(token) {
+  function tokenCheck(token) {  //проверка токена
     if (token) {
       getContent(token).then((res) => {
         if (res) {
@@ -77,19 +96,19 @@ function App(props) {
     };
   }
 
-  function handleEditProfileClick() {
+  function handleEditProfileClick() { // открыть окно с редактированием пользователя
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
   
-  function handleAddPlaceClick() {
+  function handleAddPlaceClick() {  // открыть окно с добавлением новой карточки
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
   
-  function handleEditAvatarClick() {
+  function handleEditAvatarClick() {  // открыть окно с обновлением аватара
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
-  function closeAllPopups() {
+  function closeAllPopups() { // закрыть все всплывающие окна
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -98,13 +117,13 @@ function App(props) {
     setIsMessagePopupOpen(false);
   }  
 
-  function handleImageClick(link, name) {
+  function handleImageClick(link, name) { // раскрыть карточку
     setImageLink(link);
     setImageTitle(name);
     setIsImagePopupOpen(!isImagePopupOpen);
   }
 
-  function handleUpdateUser({name, about}) {
+  function handleUpdateUser({name, about}) {  // обновить имя и статус пользователя
     const data = {name: name, job: about};
     const token = localStorage.getItem('token');
     api.refreshUserInfo(data, token)
@@ -115,7 +134,7 @@ function App(props) {
     .catch(err => console.log(err));
   }
 
-  function handlePostNewCard(data) {
+  function handlePostNewCard(data) {  // создать новую карточку
     const token = localStorage.getItem('token');
     api
     .postNewCard(data, token)
@@ -126,7 +145,7 @@ function App(props) {
     .catch(err => console.log(err));
   }
 
-  function handleUpdateAvatar(data) {
+  function handleUpdateAvatar(data) { // обновить аватар
     const token = localStorage.getItem('token');
     api
     .refreshAvatar(data, token)
@@ -137,7 +156,7 @@ function App(props) {
     .catch(err => console.log(err));
   }
 
-  function handleCardLike(card) {
+  function handleCardLike(card) { // удалить карточку
     const token = localStorage.getItem('token');
     if (card.likes.some(i => i === currentUser._id)) {
       api
@@ -166,24 +185,11 @@ function App(props) {
     .catch(err => console.log(err));
   }
 
-  function authorizateUser(password, email) {
+  function authorizateUser(password, email) { // вход на сайт
     authorization(password, email).then((res) => {
       if (res) {
         setEmail(email);
         setLoggedIn(true);
-        const token = localStorage.getItem('token');
-        if (token) {
-        Promise.all([
-          api.getUserInfo(token),  // запрос информации о профиле
-          api.getInitialCards(token)  // загрузка изначальных карточек
-        ])
-          .then(([info, initialCards])=>{
-            setCurrentUser(info);
-            setCards(initialCards);
-            console.log(initialCards);
-          }).catch(err => console.log(err));
-          tokenCheck(token);
-        };
         props.history.push('/');
       } else {
         setIsSuccess(false);
@@ -193,7 +199,7 @@ function App(props) {
     .catch(err => console.log(err));
   }
 
-  function registrationUser(password, email) {
+  function registrationUser(password, email) {  // регистрация нового пользователя
     register(password, email).then((res) => {
       if (res) {
         setIsSuccess(true);
