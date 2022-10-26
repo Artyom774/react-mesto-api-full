@@ -50,22 +50,6 @@ function App(props) {
     };
   }, [])
 
-  React.useEffect(()=>{ 
-    const token = localStorage.getItem('token');
-    if (token) {
-    Promise.all([
-      api.getUserInfo(token),  // запрос информации о профиле
-      api.getInitialCards(token)  // загрузка изначальных карточек
-    ])
-      .then(([info, initialCards])=>{
-        setCurrentUser(info);
-        setCards(initialCards);
-        console.log(initialCards);
-      }).catch(err => console.log(err));
-      tokenCheck(token);
-    };
-  }, [loggedIn])
-
   React.useEffect(() => {
     function closeByEscape(evt) {
       if(evt.key === 'Escape') {
@@ -187,6 +171,19 @@ function App(props) {
       if (res) {
         setEmail(email);
         setLoggedIn(true);
+        const token = localStorage.getItem('token');
+        if (token) {
+        Promise.all([
+          api.getUserInfo(token),  // запрос информации о профиле
+          api.getInitialCards(token)  // загрузка изначальных карточек
+        ])
+          .then(([info, initialCards])=>{
+            setCurrentUser(info);
+            setCards(initialCards);
+            console.log(initialCards);
+          }).catch(err => console.log(err));
+          tokenCheck(token);
+        };
         props.history.push('/');
       } else {
         setIsSuccess(false);
