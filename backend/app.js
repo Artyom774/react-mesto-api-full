@@ -16,7 +16,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3100 } = process.env; // файл .env хранится на сервере
 const app = express(); // app работает через фреймворк Express
 
-const corsOptions = { // настройки КОРС-а
+/* const corsOptions = { // настройки КОРС-а
   credentials: true,
   origin: [
     'http://localhost:3000',
@@ -25,23 +25,36 @@ const corsOptions = { // настройки КОРС-а
     'http://your-mesto.nomoredomains.icu',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  // exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-  // allowHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
   // headers: 'Origin,X-Requested-With,Content-Type,Accept',
   // preflightContinue: false,
-  // optionsSuccessStatus: 204,
 };
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); */
 
-/* app.use(function(req, res, next) {
+const allowedCors = [
+  'http://localhost:3000',
+  'https://84.201.162.71:3000',
+  'https://your-mesto.nomoredomains.icu',
+  'http://your-mesto.nomoredomains.icu',
+];
+
+// eslint-disable-next-line consistent-return
+app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
-    ...
+    res.header('Access-Control-Allow-Origin', origin);
   }
 
-  next();
-}); */
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
+  if (method === 'OPTIONS') {
+    // разрешаем кросс-доменные запросы любых типов (по умолчанию)
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+});
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение к базе MongooseDB
   useNewUrlParser: true,
