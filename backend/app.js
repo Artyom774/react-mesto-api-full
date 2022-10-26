@@ -21,7 +21,8 @@ const corsOptions = { // настройки КОРС-а
   origin: [
     'http://localhost:3000',
     'https://84.201.162.71:3000',
-    'https://your-mesto.nomoredomains.icu'],
+    'https://your-mesto.nomoredomains.icu',
+    'http://your-mesto.nomoredomains.icu'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: false,
 };
