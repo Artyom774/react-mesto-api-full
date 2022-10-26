@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -46,7 +46,7 @@ app.use('/signup', signUpRouter); // регистрация пользовате
 app.use(auth); // проверка токена
 app.use('/users', usersRouter); // пути для работы с карточками
 app.use('/cards', cardsRouter); // пути для работы с пользователем
-app.use('/', (req, res, next) => { next(new NotFoundError(`'${req.params.id}' не является корректным идентификатором`)); }); // введён неизвестный путь
+app.use('/', (req, res, next) => { next(new NotFoundError('страница не найдена')); }); // введён неизвестный путь
 app.use(errorLogger);
 app.use(errors()); // обработка ошибок библиотеки celebrate
 app.use(errorHandler); // обработка ошибок сервера

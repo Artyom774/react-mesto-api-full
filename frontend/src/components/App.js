@@ -49,22 +49,17 @@ function App(props) {
     };
   }, [])
 
-  React.useEffect(()=>{ 
-    console.log('обновляем информацию');
+  React.useEffect(()=>{ // запрос информации при входе на сайт
     const token = localStorage.getItem('token');
-    console.log('токен:', token);
     if (token) {
     Promise.all([
       api.getUserInfo(token),  // запрос информации о профиле
       api.getInitialCards(token)  // загрузка изначальных карточек
     ])
       .then(([info, initialCards])=>{
-        console.log(info);
-        console.log(initialCards);
         setCurrentUser(info);
         setCards(initialCards);
       }).catch(err => console.log(err));
-      console.log('дошли до сюда');
       tokenCheck(token);
     };
   }, [loggedIn])
