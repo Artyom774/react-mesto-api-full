@@ -13,7 +13,6 @@ export const register = (password, email) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: "include",
     body: JSON.stringify({
       password: password,
       email: email
@@ -31,7 +30,6 @@ export const authorization = (password, email) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: "include",
     body: JSON.stringify({
       password: password,
       email: email
@@ -50,8 +48,7 @@ export const getContent = (token) => {
     headers: {
       'Content-Type': 'application/json',
       'authorization': `Bearer ${token}`,
-    },
-    credentials: "include"
+    }
   })
   .then(res => { return _checkResponse(res)})
   .then(data => data)
