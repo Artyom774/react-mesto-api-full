@@ -52,8 +52,11 @@ app.use((req, res, next) => {
     // разрешаем кросс-доменные запросы любых типов (по умолчанию)
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
+    res.header('Access-Control-Allow-Headers', true);
     return res.end();
   }
+
+  next();
 });
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение к базе MongooseDB
