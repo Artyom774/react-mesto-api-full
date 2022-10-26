@@ -40,7 +40,7 @@ const allowedCors = [
 ];
 
 // eslint-disable-next-line consistent-return
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
@@ -59,7 +59,7 @@ const allowedCors = [
   }
 
   next();
-}); */
+});
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение к базе MongooseDB
   useNewUrlParser: true,
