@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 // const cors = require('cors');
@@ -16,6 +16,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3100 } = process.env; // файл .env хранится на сервере
 const app = express(); // app работает через фреймворк Express
 
+// настройка CORS через библиотеку
 /* const corsOptions = { // настройки КОРС-а
   credentials: true,
   origin: [
