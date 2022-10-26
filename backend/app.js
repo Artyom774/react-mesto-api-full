@@ -17,7 +17,7 @@ const { PORT = 3100 } = process.env; // файл .env хранится на се
 const app = express(); // app работает через фреймворк Express
 
 const corsOptions = { // настройки КОРС-а
-  credentials: true,
+  // credentials: true,
   origin: [
     'http://localhost:3000',
     'https://84.201.162.71:3000',
@@ -32,6 +32,16 @@ const corsOptions = { // настройки КОРС-а
   optionsSuccessStatus: 204,
 };
 app.use(cors(corsOptions));
+
+/* app.use(function(req, res, next) {
+  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  // проверяем, что источник запроса есть среди разрешённых
+  if (allowedCors.includes(origin)) {
+    ...
+  }
+
+  next();
+}); */
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение к базе MongooseDB
   useNewUrlParser: true,
