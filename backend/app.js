@@ -36,6 +36,7 @@ const allowedCors = [
   'https://84.201.162.71:3000',
   'https://your-mesto.nomoredomains.icu',
   'http://your-mesto.nomoredomains.icu',
+  'http://127.0.0.1',
 ];
 
 // eslint-disable-next-line consistent-return
