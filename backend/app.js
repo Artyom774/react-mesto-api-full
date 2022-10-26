@@ -13,7 +13,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3100 } = process.env; // файла .env нет в проекте
+const { PORT = 3100 } = process.env; // файл .env хранится на сервере
 const app = express(); // app работает через фреймворк Express
 
 const corsOptions = { // настройки КОРС-а
@@ -25,7 +25,9 @@ const corsOptions = { // настройки КОРС-а
     'http://your-mesto.nomoredomains.icu',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  headers: 'Origin,X-Requested-With,Content-Type,Accept',
+  // exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+  exposedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+  // headers: 'Origin,X-Requested-With,Content-Type,Accept',
   preflightContinue: false,
 };
 app.use(cors(corsOptions));
