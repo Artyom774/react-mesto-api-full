@@ -26,9 +26,10 @@ const corsOptions = { // настройки КОРС-а
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   // exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-  allowHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+  // allowHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
   // headers: 'Origin,X-Requested-With,Content-Type,Accept',
   preflightContinue: false,
+  optionsSuccessStatus: 204,
 };
 app.use(cors(corsOptions));
 
