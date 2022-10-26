@@ -25,9 +25,7 @@ const corsOptions = { // настройки КОРС-а
     'http://your-mesto.nomoredomains.icu',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  headers: {
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-  },
+  headers: 'Origin, X-Requested-With, Content-Type, Accept',
   preflightContinue: false,
 };
 app.use(cors(corsOptions));
