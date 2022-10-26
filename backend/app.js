@@ -20,9 +20,7 @@ const corsOptions = { // настройки КОРС-а
   credentials: true,
   origin: [
     'http://localhost:3000',
-    'http://84.201.162.71:3000',
     'https://84.201.162.71:3000',
-    'http://your-mesto.nomoredomains.icu',
     'https://your-mesto.nomoredomains.icu'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: false,
@@ -37,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
+app.get('/crash-test', () => { // краш-тест сервера (после окончания разработки - удалить)
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
@@ -49,7 +47,7 @@ app.use(auth); // проверка токена
 app.use('/users', usersRouter); // пути для работы с карточками
 app.use('/cards', cardsRouter); // пути для работы с пользователем
 app.use('/', (req, res, next) => { next(new NotFoundError('страница не найдена')); }); // введён неизвестный путь
-app.use(errorLogger);
+app.use(errorLogger); // логи
 app.use(errors()); // обработка ошибок библиотеки celebrate
 app.use(errorHandler); // обработка ошибок сервера
 
