@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -17,7 +17,7 @@ const { PORT = 3100 } = process.env; // файл .env хранится на се
 const app = express(); // app работает через фреймворк Express
 
 const corsOptions = { // настройки КОРС-а
-  // credentials: true,
+  credentials: true,
   origin: [
     'http://localhost:3000',
     'https://84.201.162.71:3000',
@@ -28,8 +28,8 @@ const corsOptions = { // настройки КОРС-а
   // exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
   // allowHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
   // headers: 'Origin,X-Requested-With,Content-Type,Accept',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
+  // preflightContinue: false,
+  // optionsSuccessStatus: 204,
 };
 app.use(cors(corsOptions));
 
