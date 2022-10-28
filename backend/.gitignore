@@ -1,9 +1,9 @@
-# Logs
+# логи
 logs
 *.log
 npm-debug.log*
 
-# Dependency directory
+# папка с модулями
 node_modules
 
 # Optional npm cache directory

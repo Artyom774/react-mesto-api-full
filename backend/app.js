@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-// const cors = require('cors');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const usersRouter = require('./routes/users');
@@ -16,21 +15,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3100 } = process.env; // файл .env хранится на сервере
 const app = express(); // app работает через фреймворк Express
 
-// настройка CORS через библиотеку
-/* const corsOptions = { // настройки КОРС-а
-  credentials: true,
-  origin: [
-    'http://localhost:3000',
-    'https://84.201.162.71:3000',
-    'https://your-mesto.nomoredomains.icu',
-    'http://your-mesto.nomoredomains.icu',
-  ],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  // headers: 'Origin,X-Requested-With,Content-Type,Accept',
-  // preflightContinue: false,
-};
-app.use(cors(corsOptions)); */
-
 const allowedCors = [
   'http://localhost:3000',
   'https://84.201.162.71:3000',
@@ -41,9 +25,8 @@ const allowedCors = [
 
 // eslint-disable-next-line consistent-return
 app.use((req, res, next) => {
-  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
-  // проверяем, что источник запроса есть среди разрешённых
-  if (allowedCors.includes(origin)) {
+  const { origin } = req.headers; // сохраняем источник запроса в переменную origin
+  if (allowedCors.includes(origin)) { // проверяем, что источник запроса есть среди разрешённых
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
   }
@@ -51,11 +34,9 @@ app.use((req, res, next) => {
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];
-  if (method === 'OPTIONS') {
-    // разрешаем кросс-доменные запросы любых типов (по умолчанию)
+  if (method === 'OPTIONS') { // разрешаем кросс-доменные запросы любых типов (по умолчанию)
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
-    // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     return res.end();
   }
 
@@ -69,12 +50,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { // подключени�
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
-
-app.get('/crash-test', () => { // краш-тест сервера (после окончания разработки - удалить)
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 
 app.use('/signin', signInRouter); // авторизация пользователя
 app.use('/signup', signUpRouter); // регистрация пользователя
